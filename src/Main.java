@@ -52,19 +52,20 @@ public class Main {
         // Format the student data
         String studentData = name + ";" + id + ";" + courses;
 
-        // Write student data to a CSV file
+
+        // Write student data to a TXT file (Database)
         try {
-            FileWriter fileWriter = new FileWriter("/app/data/batch/Data.csv", true);
+            FileWriter fileWriter = new FileWriter( "/app/data/batch/Main-DB.txt", true);
             fileWriter.write(studentData + "\n");
             fileWriter.close();
-            System.out.println("Student data added to file: students.csv");
+            System.out.println("Student data added to file: Main-DB.txt");
         } catch (IOException e) {
             System.out.println("Error occurred while writing to the file: " + e.getMessage());
         }
     }
 
     private static void addBatchStudentsData(Scanner scanner) {
-        String folderPath = "E:\\yousef\\College\\Year 4\\Semester 2\\Cloud\\Assignment 2\\Student files";
+        String folderPath = "/app/data/batch";
 
         // Get a list of eligible batch files
         List<String> eligibleFiles = getEligibleBatchFiles(folderPath);
@@ -80,20 +81,20 @@ public class Main {
         String fileName = scanner.nextLine();
 
         // Get the selected file path
-        String selectedFilePath = folderPath + fileName;
+        String selectedFilePath = folderPath + "/" + fileName;
 
         // Read the content of the selected file
         try {
             List<String> fileContent = Files.readAllLines(Paths.get(selectedFilePath));
 
             // Write each line from the selected file to the target file
-            FileWriter fileWriter = new FileWriter("/app/data/batch/Data.csv", true);
+            FileWriter fileWriter = new FileWriter("/app/data/batch/Main-DB.txt", true);
             for (String line : fileContent) {
                 fileWriter.write(line + "\n");
             }
             fileWriter.close();
 
-            System.out.println("Student data added to file: Data.csv");
+            System.out.println("Student data added successfully");
         } catch (IOException e) {
             System.out.println("Error occurred while reading or writing the files: " + e.getMessage());
         }

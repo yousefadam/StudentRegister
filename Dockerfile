@@ -20,4 +20,4 @@ RUN javac Main.java
 # docker build -t your-image-name .
 
 # Run the Docker container and mount the host folder to the container volume:
-# docker run -v "C:\Users\Yousef\OneDrive\Desktop\appData":/app/data/batch studentregister
+# docker run -it -v batch:/app/data/batch -v Main-DB.txt:/app/data/Main-DB.txt studentregister
