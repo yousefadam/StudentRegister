@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,9 +19,15 @@ public class Main {
             scanner.nextLine(); // Consume the newline character
 
             switch (choice) {
-                case 1 -> addStudentData(scanner);
-                case 2 -> addBatchStudentsData(scanner);
-                default -> System.out.println("Invalid choice. Please try again.");
+                case 1:
+                    addStudentData(scanner);
+                    break;
+                case 2:
+                    addBatchStudentsData(scanner);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
             }
         } while (choice == 1 || choice == 2);
     }
@@ -75,14 +82,35 @@ public class Main {
         String fileName = scanner.nextLine();
 
         // Get the selected file path
-        String selectedFilePath = folderPath + "/" + fileName;
+        String selectedFilePath = folderPath + '/' + fileName;
 
+        try {
+            Scanner fileScanner = new Scanner(new File(selectedFilePath));
+            fileScanner.useDelimiter(",");
+
+            FileWriter fileWriter = new FileWriter("/app/data/Main-DB.txt", true);
+
+            while(fileScanner.hasNext()){
+                String line = fileScanner.nextLine();
+
+                fileWriter.write(line + "\n");
+
+            }
+
+            fileWriter.close();
+            fileScanner.close();
+
+            System.out.println("Student data added successfully");
+        } catch (IOException e) {
+            System.out.println("Error occurred while reading the files: " + e.getMessage());
+        }
+        /*
         // Read the content of the selected file
         try {
             List<String> fileContent = Files.readAllLines(Paths.get(selectedFilePath));
 
             // Write each line from the selected file to the target file
-            FileWriter fileWriter = new FileWriter("/app/data/batch/Main-DB.txt", true);
+            FileWriter fileWriter = new FileWriter("/app/data/Main-DB.txt", true);
             for (String line : fileContent) {
                 fileWriter.write(line + "\n");
             }
@@ -92,6 +120,8 @@ public class Main {
         } catch (IOException e) {
             System.out.println("Error occurred while reading or writing the files: " + e.getMessage());
         }
+
+        */
     }
 
     private static List<String> getEligibleBatchFiles(String folderPath) {
