@@ -17,7 +17,7 @@ RUN javac Main.java
 
 
 # Build the Docker image:
-# docker build -t your-image-name .
+# docker build -t studentregister .
 
 # Run the Docker container and mount the host folder to the container volume:
-# docker run -it -v batch:/app/data/batch -v Main-DB.txt:/app/data/Main-DB.txt studentregister
+# docker run -it -v batch:/app/data/batch -v $PWD/Main-DB.txt:/app/data/Main-DB.txt studentregister

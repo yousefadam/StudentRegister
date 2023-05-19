@@ -18,15 +18,9 @@ public class Main {
             scanner.nextLine(); // Consume the newline character
 
             switch (choice) {
-                case 1:
-                    addStudentData(scanner);
-                    break;
-                case 2:
-                    addBatchStudentsData(scanner);
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
+                case 1 -> addStudentData(scanner);
+                case 2 -> addBatchStudentsData(scanner);
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         } while (choice == 1 || choice == 2);
     }
@@ -55,7 +49,7 @@ public class Main {
 
         // Write student data to a TXT file (Database)
         try {
-            FileWriter fileWriter = new FileWriter( "/app/data/batch/Main-DB.txt", true);
+            FileWriter fileWriter = new FileWriter( "/app/data/Main-DB.txt", true);
             fileWriter.write(studentData + "\n");
             fileWriter.close();
             System.out.println("Student data added to file: Main-DB.txt");
